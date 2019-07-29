@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2019_07_29_175724) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "trips", force: :cascade do |t|
     t.string "name"
     t.string "location"
     t.string "status"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

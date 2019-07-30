@@ -36,11 +36,6 @@ function loginPrompt() {
 
 function fetchUser(e) {
   let username = e.target[0].value;
-  // fetch(userURL)
-  //   .then(res => res.json())
-  //   .then(json => {
-  //     renderUser(username);
-  //   });
 
   fetch(userURL, {
     method: "POST",

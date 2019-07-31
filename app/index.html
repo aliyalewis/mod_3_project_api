@@ -5,25 +5,19 @@
    <title>Trips</title>
    <link rel="stylesheet" href="style.css">
  </head>
-<!-- The overlay -->
-<div id="myNav" class="overlay">
- <!-- Button to close the overlay navigation -->
- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
- <!-- Overlay content -->
- <div class="overlay-content">
-   <h2 id="title"></h2>
-        <img id="img">
-   <p id="description"></p>
-     <button class="like"></button>
-          <ul class="users">Users Who Liked This Book:</ul>
- </div>
-</div>
-<!-- Use any element to open/show the overlay navigation menu -->
-<!-- <span onclick="openNav()"></span> -->
  <body>
    <main id= "main">
      <h1></h1>
 
+     <div class="dropdown", id="countries">
+       <div class='dropdown-button'></div>
+       <ul class='dropdown-selection'></ul>
+     </div>
+
+     <div class="dropdown", id="countries2">
+       <div class='dropdown-button' id="asia"></div>
+       <ul class='dropdown-selection' id="asia2"></ul>
+     </div>
 
    </main>
    <script src="./index.js"></script>

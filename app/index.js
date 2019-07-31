@@ -1,23 +1,30 @@
 const countriesURL = "http://localhost:3000/countries";
 const userURL = "http://localhost:3000/users";
 
-// let northMenu = document.getElementById("North-America")
-// northMenu.setAttribute("hidden", "hidden")
-//
-// let southMenu = document.getElementById("South-America")
-// southMenu.setAttribute("hidden", "hidden")
-//
-// let oceaniaMenu = document.getElementById("Oceania")
-// oceaniaMenu.setAttribute("hidden", "hidden")
-//
-// let africaMenu = document.getElementById("Africa")
-// // africaMenu.setAttribute("hidden", "")
-//
-// let asiaMenu = document.getElementById("Asia")
-// asiaMenu.style.display === ('none')
-//
-// let europeMenu = document.getElementById("Europe")
-// europeMenu.style.display === ('none')
+let activeDropdown = {};
+document.getElementById("countries").addEventListener("click", function() {
+  if (activeDropdown.id && activeDropdown.id !== event.target.id) {
+    activeDropdown.element.style.visibility = "hidden";
+  }
+  if (event.target.tagName === "li") {
+    activeDropdown.button.innerHTML = event.target.innerHTML;
+  }
+  for (var i = 0; i < this.children.length; i++) {
+    if (this.children[i].classList.contains("dropdown-selection")) {
+      activeDropdown.id = this.id;
+      activeDropdown.element = this.children[i];
+      this.children[i].style.visibility = "visible";
+    } else if (this.children[i].classList.contains("dropdown-button")) {
+      activeDropdown.button = this.children[i];
+    }
+  }
+});
+
+window.onclick = function(event) {
+  if (!event.target.classList.contains("dropdown-button")) {
+    activeDropdown.element.style.visibility = "hidden";
+  }
+};
 
 main();
 
@@ -92,26 +99,6 @@ function fetchCountries() {
 }
 
 function showCountries(countries) {
-  const main = document.getElementById("main");
-  let toggleButton = document.createElement("button");
-  toggleButton.innerText = "Toggle";
-  main.appendChild(toggleButton);
-  toggleButton.addEventListener("click", function(e) {
-    toggleDisplay(e.target);
-  });
-  toggleButton.addEventListener("mouseover", function(e) {
-    toggleDisplay2(e.target);
-  });
-
-  let asiaSelect = document.createElement("select");
-  asiaSelect.setAttribute("id", "Asia");
-
-  let europeSelect = document.createElement("select");
-  europeSelect.setAttribute("id", "Europe");
-
-  main.appendChild(asiaSelect);
-  main.appendChild(europeSelect);
-
   let asia = [];
   let europe = [];
   let norAmer = [];
@@ -142,89 +129,56 @@ function showCountries(countries) {
     }
   });
 
-  asia.forEach(function(country) {
-    let option = document.createElement("option");
-    option.setAttribute("id", "opt" + country.id);
-    option.setAttribute("value", country.name)
-    option.innerText = country.name;
-    asiaSelect.appendChild(option);
-
-    });
-    asiaSelect.addEventListener("onselect", function(e) {
-      console.log("clicked")
-      openNav(e, country);
-
-    console.log(option);
-  });
-
   europe.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    europeSelect.appendChild(option);
-    console.log(option);
+    let europeDiv = document.querySelector(".dropdown-button");
+    europeDiv.innerText = "Europe";
+    let ul = document.querySelector(".dropdown-selection");
+    let li = document.createElement("li");
+    li.innerText = country.name;
+    ul.appendChild(li);
   });
 
-  norAmer.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    northMenu.appendChild(option);
-    console.log(option);
+  asia.forEach(function(country) {
+    let asiaDiv = document.getElementById("asia");
+
+    console.log(asiaDiv, "Asia");
+    asiaDiv.innerText = "Asia";
+    let ul2 = document.getElementById("asia2");
+    let li = document.createElement("li");
+    li.innerText = country.name;
+    ul2.appendChild(li);
   });
 
-  soAmer.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    southMenu.appendChild(option);
-    console.log(option);
+  document.getElementById("countries2").addEventListener("click", function() {
+    for (var i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("dropdown-selection")) {
+        this.children[i].style.visibility = "visible";
+      }
+    }
   });
 
-  oceania.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    oceaniaMenu.appendChild(option);
-    console.log(option);
-  });
-
-  africa.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    africaMenu.appendChild(option);
-    console.log(option);
+  document.getElementById("countries").addEventListener("click", function() {
+    for (var i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("dropdown-selection")) {
+        this.children[i].style.visibility = "visible";
+      }
+    }
   });
 }
-
-function toggleDisplay(target) {
-  let dropdown = document.getElementById("Asia");
-  if (dropdown.style.display === "none") {
-    dropdown.style.display = "block";
-  } else {
-    dropdown.style.display = "none";
-  }
-}
-
-function toggleDisplay2(target) {
-  let dropdown = document.getElementById("Europe");
-  if (dropdown.style.display === "none") {
-    dropdown.style.display = "block";
-  } else {
-    dropdown.style.display = "none";
-  }
-}
-
-// -------------------open/close nav -------------------------
-function openNav(e, country) {
-  document.getElementById("myNav").style.width = 100 % showCountry(country);
-  // page.style.width = 100%
-}
-
-function closeNav() {
-  document.getElementById("myNav").style.width = "0%";
-}
-// -------------------------------------------------------
-
-function showCountry(country) {
-  const page = document.querySelector(".overlay-content");
-  const name = document.createElement("name");
-  name.innerText = country.name;
-  page.appendChild(name);
-}
+// // -------------------open/close nav -------------------------
+// function openNav(e, country) {
+//   document.getElementById("myNav").style.width = 100 % showCountry(country);
+//   // page.style.width = 100%
+// }
+//
+// function closeNav() {
+//   document.getElementById("myNav").style.width = "0%";
+// }
+// // -------------------------------------------------------
+//
+// function showCountry(country) {
+//   const page = document.querySelector(".overlay-content");
+//   const name = document.createElement("name");
+//   name.innerText = country.name;
+//   page.appendChild(name);
+// }

@@ -1,62 +1,66 @@
-/*The Overlay (background) */
-.overlay {
- /* Height & width depends on how you want to reveal the overlay (see JS below) */
- height: 100%;
- width: 0;
- position: fixed; /* Stay in place */
- z-index: 1; /* Sit on top */
- left: 0;
- top: 0;
- background-color: rgb(0,0,0); /* Black fallback color */
- background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
- overflow-x: hidden; /* Disable horizontal scroll */
- transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+.dropdown {
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  font-family: "Arial";
 }
-/* Position the content inside the overlay */
-.overlay-content {
- position: relative;
- top: 25%; /* 25% from the top */
- width: 100%; /* 100% width */
- text-align: center; /* Centered text/links */
- margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+.dropdown-button {
+  background: #3498db;
+  min-width: 100px;
+  color: #fff;
+  letter-spacing: 0.025rem;
+  box-sizing: border-box;
+  padding: 10px 30px 10px 20px;
+  position: relative;
+  cursor: pointer;
+  transition: background .3s ease;
 }
-.overlay h2 {
-    color: #818181;
-    font-size: 36px;
+.dropdown-button:hover {
+  background: #2980b9;
+  transition: background .3s ease;
 }
-.overlay li {
-    color: #818181;
-    font-size: 36px;
+.triangle {
+  font-size: 50%;
+  position: absolute;
+  right: 10px;
+  top: -2px;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 5px;
+  color: #fff;
 }
-/* The navigation links inside the overlay */
-.overlay p {
- padding: 8px;
- text-decoration: none;
- font-size: 28px;
- color: #818181;
- display: block; /* Display block instead of inline */
- transition: 0.3s; /* Transition effects on hover (color) */
+
+.dropdown ul {
+  padding: 0;
+  list-style: none;
+  box-shadow: 0px 2px 6px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  left: 0;
+  margin-top: 2px;
+  top: 100%;
+  min-width: 90%;
 }
-.overlay ul {
-    font-size: 28px;
- color: #818181;
+.dropdown li {
+  background: #fff;
+  padding: 8px 10px 8px 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background .2s ease;
 }
-/* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
- color: #f1f1f1;
+.dropdown li:hover {
+  background: #f6f6f6;
+  transition: background .2s ease;
 }
-/* Position the close button (top right corner) */
-.overlay .closebtn {
- position: absolute;
- top: 20px;
- right: 45px;
- font-size: 60px;
+
+.dropdown ul {
+  visibility: hidden;
+  padding: 0;
+  list-style: none;
+  box-shadow: 0px 2px 6px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  left: 0;
+  margin-top: 2px;
+  top: 100%;
+  min-width: 90%;
 }
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
- .overlay a {font-size: 20px}
- .overlay .closebtn {
-   font-size: 40px;
-   top: 15px;
-   right: 35px;
-} }

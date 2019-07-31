@@ -4,7 +4,7 @@ const userURL = "http://localhost:3000/users";
 let activeDropdown = {};
 document.getElementById("countries").addEventListener("click", function() {
   if (activeDropdown.id && activeDropdown.id !== event.target.id) {
-    activeDropdown.element.style.visibility = "hidden";
+    // activeDropdown.element.style.visibility = "hidden"
   }
   if (event.target.tagName === "li") {
     activeDropdown.button.innerHTML = event.target.innerHTML;
@@ -31,6 +31,7 @@ function loginPrompt() {
 
   const p = document.createElement("p");
   p.innerText = "Please login to continue!";
+  p.setAttribute("id", "login")
   main.appendChild(p);
   main.appendChild(form);
 
@@ -72,8 +73,9 @@ function fetchUser(e) {
 
 function renderUser(user) {
   let form = document.querySelector("form");
-  let p = document.querySelector("p");
+  let p = document.getElementById("login");
   p.setAttribute("hidden", "hidden");
+  p.style.display = 'none'
   form.setAttribute("hidden", "hidden");
   let userName = user.name;
   let userPic = user.avatar;
@@ -141,10 +143,9 @@ function showCountries(countries) {
   });
 
   document.getElementById("countries").addEventListener("click", function() {
+    console.log('click')
     for (let i = 0; i < this.children.length; i++) {
       if (this.children[i].classList.contains("hidden")) {
-        console.log("hi", this.children[1]);
-
         this.children[1].classList.add("visible");
         this.children[1].classList.remove("hidden");
       } else if (this.children[i].classList.contains("visible")) {
@@ -183,3 +184,22 @@ function showCountries(countries) {
 //   name.innerText = country.name;
 //   page.appendChild(name);
 // }
+
+function openTab(tabName, elmnt, color) {
+  let i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+
+  document.getElementById(tabName).style.display = "block";
+
+  elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();

@@ -9,16 +9,41 @@
    <main id= "main">
      <h1></h1>
 
-     <div class="dropdown", id="countries">
-       <div class='dropdown-button' id="europe"></div>
-       <ul class='dropdown-selection hidden' id="europe2"></ul>
-     </div>
+     <div id="Travel-Log" class="tabcontent">
+  <h1>My Travel Log</h1>
+  <p></p>
+</div>
 
-     <div class="dropdown", id="countries2">
-       <div class='dropdown-button' id="asia"></div>
-       <ul class='dropdown-selection hidden' id="asia2"></ul>
-     </div>
+<div id="Bucket-List" class="tabcontent">
+  <h1>My Bucket List</h1>
+  <p></p>
+</div>
 
+<div id="Resources" class="tabcontent">
+  <h1>Travel Resources</h1>
+  <p>A list of sites that may help you get started on your next adventure!</p>
+</div>
+
+<div id="Home" class="tabcontent">
+  <h1>Home</h1>
+  <p></p>
+</div>
+
+<button class="tablink" onclick="openTab('Home', this, 'red')" id="defaultOpen">Home</button>
+<button class="tablink" onclick="openTab('Travel Log', this, 'green')">Travel Log</button>
+<button class="tablink" onclick="openTab('Bucket List', this, 'blue')">Bucket List</button>
+<button class="tablink" onclick="openTab('Resources', this, 'orange')">Resources</button>
+
+
+<div class="dropdown", id="countries">
+  <div class='dropdown-button' id="europe"></div>
+  <ul class='dropdown-selection hidden' id="europe2"></ul>
+</div>
+
+<div class="dropdown", id="countries2">
+  <div class='dropdown-button' id="asia"></div>
+  <ul class='dropdown-selection hidden' id="asia2"></ul>
+</div>
    </main>
    <script src="./index.js"></script>
  </body>

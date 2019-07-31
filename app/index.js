@@ -1,5 +1,7 @@
 const countriesURL = "http://localhost:3000/countries";
 const userURL = "http://localhost:3000/users";
+const tripsURL = "http://localhost:3000/trips";
+let currentUser;
 
 let activeDropdown = {};
 document.getElementById("countries").addEventListener("click", function() {
@@ -31,7 +33,7 @@ function loginPrompt() {
 
   const p = document.createElement("p");
   p.innerText = "Please login to continue!";
-  p.setAttribute("id", "login")
+  p.setAttribute("id", "login");
   main.appendChild(p);
   main.appendChild(form);
 
@@ -75,7 +77,7 @@ function renderUser(user) {
   let form = document.querySelector("form");
   let p = document.getElementById("login");
   p.setAttribute("hidden", "hidden");
-  p.style.display = 'none'
+  p.style.display = "none";
   form.setAttribute("hidden", "hidden");
   let userName = user.name;
   let userPic = user.avatar;
@@ -130,6 +132,10 @@ function showCountries(countries) {
     let ul = document.getElementById("europe2");
     let li = document.createElement("li");
     li.innerText = country.name;
+    li.addEventListener("click", function(e) {
+      e.preventDefault();
+      openNav(e, country);
+  });
     ul.appendChild(li);
   });
 
@@ -139,11 +145,15 @@ function showCountries(countries) {
     let ul2 = document.getElementById("asia2");
     let li = document.createElement("li");
     li.innerText = country.name;
+    li.addEventListener("click", function(e) {
+      e.preventDefault();
+      openNav(e, country);
+  });
     ul2.appendChild(li);
   });
 
   document.getElementById("countries").addEventListener("click", function() {
-    console.log('click')
+    console.log("click");
     for (let i = 0; i < this.children.length; i++) {
       if (this.children[i].classList.contains("hidden")) {
         this.children[1].classList.add("visible");
@@ -167,23 +177,57 @@ function showCountries(countries) {
     }
   });
 }
-// // -------------------open/close nav -------------------------
-// function openNav(e, country) {
-//   document.getElementById("myNav").style.width = 100 % showCountry(country);
-//   // page.style.width = 100%
-// }
-//
-// function closeNav() {
-//   document.getElementById("myNav").style.width = "0%";
-// }
-// // -------------------------------------------------------
-//
-// function showCountry(country) {
-//   const page = document.querySelector(".overlay-content");
-//   const name = document.createElement("name");
-//   name.innerText = country.name;
-//   page.appendChild(name);
-// }
+// -------------------open/close nav -------------------------
+function openNav(e, country) {
+  showCountry(country)
+  document.getElementById("myNav").style.width = "100%" ;
+  // page.style.width = 100%
+}
+
+function closeNav() {
+  let addButton = document.querySelector(".add");
+  addButton.parentNode.removeChild(addButton);
+  document.getElementById("myNav").style.width = "0%";
+}
+// -------------------------------------------------------
+
+function showCountry(country) {
+  let page = document.querySelector(".overlay-content");
+  page.id = "page" + country.id
+  const h2 = document.getElementById("name");
+  h2.innerText = country.name;
+  const description = document.getElementById("description");
+  description.innerText = country.description;
+  let addButton = document.createElement("button");
+  addButton.className = "add"
+  addButton.id = "add" + country.id;
+  addButton.innerText = "Add To My Bucket List!";
+    addButton.addEventListener("click", function _listener(e) {
+     addCountry(e, country)
+     addButton.innerText = "Trip Added!"
+     addButton.removeEventListener("click", _listener)
+
+    });
+  page.appendChild(addButton);
+}
+
+function addCountry(e, country) {
+  console.log(e, `added ${country.id}`)
+  // fetch(tripsURL, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     'Accept': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     name: country.name,
+  //     status: "BL",
+  //     user_id: currentUser.id,
+  //     country_id: country.id,
+  //   })
+  // }).then(resp => resp.json())
+  // .then(data => console.log(data))
+}
 
 function openTab(tabName, elmnt, color) {
   let i, tabcontent, tablinks;

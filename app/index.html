@@ -3,11 +3,27 @@
  <head>
    <meta charset="utf-8">
    <title>Trips</title>
-   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="style.css">
  </head>
+<!-- The overlay -->
+<div id="myNav" class="overlay">
+ <!-- Button to close the overlay navigation -->
+ <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+ <!-- Overlay content -->
+ <div class="overlay-content">
+   <h2 id="title"></h2>
+        <img id="img">
+   <p id="description"></p>
+     <button class="like"></button>
+          <ul class="users">Users Who Liked This Book:</ul>
+ </div>
+</div>
+<!-- Use any element to open/show the overlay navigation menu -->
+<!-- <span onclick="openNav()"></span> -->
  <body>
    <main id= "main">
      <h1></h1>
+
 
    </main>
    <script src="./index.js"></script>

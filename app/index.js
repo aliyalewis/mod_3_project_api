@@ -13,18 +13,11 @@ document.getElementById("countries").addEventListener("click", function() {
     if (this.children[i].classList.contains("dropdown-selection")) {
       activeDropdown.id = this.id;
       activeDropdown.element = this.children[i];
-      this.children[i].style.visibility = "visible";
     } else if (this.children[i].classList.contains("dropdown-button")) {
       activeDropdown.button = this.children[i];
     }
   }
 });
-
-window.onclick = function(event) {
-  if (!event.target.classList.contains("dropdown-button")) {
-    activeDropdown.element.style.visibility = "hidden";
-  }
-};
 
 main();
 
@@ -86,7 +79,7 @@ function renderUser(user) {
   let userPic = user.avatar;
   let h1 = document.querySelector("h1");
   const main = document.getElementById("main");
-  h1.innerText = "Hi, " + userName;
+  h1.innerText = "Where to " + userName + "?";
   fetchCountries();
 }
 
@@ -130,9 +123,9 @@ function showCountries(countries) {
   });
 
   europe.forEach(function(country) {
-    let europeDiv = document.querySelector(".dropdown-button");
+    let europeDiv = document.getElementById("europe");
     europeDiv.innerText = "Europe";
-    let ul = document.querySelector(".dropdown-selection");
+    let ul = document.getElementById("europe2");
     let li = document.createElement("li");
     li.innerText = country.name;
     ul.appendChild(li);
@@ -140,8 +133,6 @@ function showCountries(countries) {
 
   asia.forEach(function(country) {
     let asiaDiv = document.getElementById("asia");
-
-    console.log(asiaDiv, "Asia");
     asiaDiv.innerText = "Asia";
     let ul2 = document.getElementById("asia2");
     let li = document.createElement("li");
@@ -149,18 +140,28 @@ function showCountries(countries) {
     ul2.appendChild(li);
   });
 
-  document.getElementById("countries2").addEventListener("click", function() {
-    for (var i = 0; i < this.children.length; i++) {
-      if (this.children[i].classList.contains("dropdown-selection")) {
-        this.children[i].style.visibility = "visible";
+  document.getElementById("countries").addEventListener("click", function() {
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("hidden")) {
+        console.log("hi", this.children[1]);
+
+        this.children[1].classList.add("visible");
+        this.children[1].classList.remove("hidden");
+      } else if (this.children[i].classList.contains("visible")) {
+        this.children[1].classList.add("hidden");
+        this.children[1].classList.remove("visible");
       }
     }
   });
 
-  document.getElementById("countries").addEventListener("click", function() {
-    for (var i = 0; i < this.children.length; i++) {
-      if (this.children[i].classList.contains("dropdown-selection")) {
-        this.children[i].style.visibility = "visible";
+  document.getElementById("countries2").addEventListener("click", function() {
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("hidden")) {
+        this.children[1].classList.add("visible");
+        this.children[1].classList.remove("hidden");
+      } else if (this.children[i].classList.contains("visible")) {
+        this.children[1].classList.add("hidden");
+        this.children[1].classList.remove("visible");
       }
     }
   });

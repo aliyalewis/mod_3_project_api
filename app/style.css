@@ -54,7 +54,6 @@
 }
 
 .dropdown ul {
-  visibility: hidden;
   padding: 0;
   list-style: none;
   box-shadow: 0px 2px 6px 0 rgba(0,0,0,0.2);
@@ -63,4 +62,14 @@
   margin-top: 2px;
   top: 100%;
   min-width: 90%;
+}
+
+
+
+.visible{
+  visibility: visible
+}
+
+.hidden{
+  visibility: hidden
 }

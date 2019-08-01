@@ -6,27 +6,74 @@
    <link rel="stylesheet" href="style.css">
  </head>
 
+
  <body>
    <main id= "main">
      <h1></h1>
 
+<div class="header_div">
+<!-- ===============   TRAVEL LOG DIV =============== -->
+     <div id="TravelLog" class="tabcontent">
+  <h1>My Travel Log</h1>
+  <p></p>
+</div>
+
+<!-- ===============   BUCKET LIST DIV =============== -->
+<div id="BucketList" class="tabcontent">
+  <h1>My Bucket List</h1>
+  <p></p>
+</div>
+
+<!-- ===============   RESOURCES DIV =============== -->
+<div id="Resources" class="tabcontent">
+  <h1>Travel Resources</h1>
+  <p>A list of sites that may help you get started on your next adventure!</p>
+</div>
+
+<!-- ===============   HOME DIV =============== -->
+<div id="Home" class="tabcontent">
+  <h1>Home</h1>
+  <p></p>
+</div>
+
+<!-- ===============  TAB BUTTONS =============== -->
+<button class="tablink" onclick="openTab('Home', this, 'red')" id="defaultOpen">Home</button>
+<button class="tablink" onclick="openTab('TravelLog', this, 'green')">Travel Log</button>
+<button class="tablink" onclick="openTab('BucketList', this, 'blue')">Bucket List</button>
+<button class="tablink" onclick="openTab('Resources', this, 'orange')">Resources</button>
+</div>
+
+<!-- =============== DROPDOWNS =============== -->
+<div class="dropdown", id="countries">
+  <div class='dropdown-button' id="europe"></div>
+  <ul class='dropdown-selection' id="europe2"></ul>
+</div>
+
+<div class="dropdown", id="countries2">
+  <div class='dropdown-button' id="asia"></div>
+  <ul class='dropdown-selection' id="asia2"></ul>
+</div>
    </main>
 
+
+<!-- ===============  NAV PAGE DIV =============== -->
    <!-- The overlay -->
-   <div id="myNav" class="overlay">
-    <!-- Button to close the overlay navigation -->
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <!-- Overlay content -->
-    <div class="overlay-content">
-      <h2 id="name"></h2>
-           <img id="img">
-      <p id="description"></p>
-        <!-- <button class="add"></button> -->
-             <ul class=""></ul>
-    </div>
-   </div>
-   <!-- Use any element to open/show the overlay navigation menu -->
-   <!-- <span onclick="openNav()"></span> -->
+<div id="myNav" class="overlay">
+ <!-- Button to close the overlay navigation -->
+ <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+ <!-- Overlay content -->
+ <div class="overlay-content">
+   <h2 id="name"></h2>
+        <img id="img">
+   <p id="description"></p>
+     <!-- <button class="add"></button> -->
+          <ul class=""></ul>
+ </div>
+</div>
+<!-- Use any element to open/show the overlay navigation menu -->
+<!-- <span onclick="openNav()"></span> -->
+
+
 
    <script src="./index.js"></script>
  </body>

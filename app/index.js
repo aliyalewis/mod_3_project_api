@@ -3,36 +3,21 @@ const userURL = "http://localhost:3000/users";
 const tripsURL = "http://localhost:3000/trips";
 let currentUser;
 
-// let northMenu = document.getElementById("North-America")
-// northMenu.setAttribute("hidden", "hidden")
-//
-// let southMenu = document.getElementById("South-America")
-// southMenu.setAttribute("hidden", "hidden")
-//
-// let oceaniaMenu = document.getElementById("Oceania")
-// oceaniaMenu.setAttribute("hidden", "hidden")
-//
-// let africaMenu = document.getElementById("Africa")
-// // africaMenu.setAttribute("hidden", "")
-//
-// let asiaMenu = document.getElementById("Asia")
-// asiaMenu.style.display === ('none')
-//
-// let europeMenu = document.getElementById("Europe")
-// europeMenu.style.display === ('none')
-
 main();
 
 function main() {
   loginPrompt();
 }
 
+
+// --------------------------Logging In -------------------------------
 function loginPrompt() {
   const form = document.createElement("form");
   const main = document.getElementById("main");
 
   const p = document.createElement("p");
   p.innerText = "Please login to continue!";
+  p.setAttribute("id", "login");
   main.appendChild(p);
   main.appendChild(form);
 
@@ -55,7 +40,6 @@ function loginPrompt() {
 
 function fetchUser(e) {
   let username = e.target[0].value;
-
   fetch(userURL, {
     method: "POST",
     headers: {
@@ -65,56 +49,80 @@ function fetchUser(e) {
     body: JSON.stringify({
       name: username
     })
-  })
-    .then(res => res.json())
-    .then(json => {
-      renderUser(json);
-    });
+  }).then(res => res.json()).then(json => renderUser(json));
 }
 
 function renderUser(user) {
   currentUser = user;
+  let header = document.querySelector(".header_div")
+  header.style.visibility = "visible";
+  let dropdowns = document.getElementsByClassName("dropdown")
+    for (let item of dropdowns) {
+      item.style.visibility = "visible";
+    }
+
   let form = document.querySelector("form");
-  let p = document.querySelector("p");
+  let p = document.getElementById("login");
   p.setAttribute("hidden", "hidden");
+  p.style.display = "none";
   form.setAttribute("hidden", "hidden");
   let userName = user.name;
   let userPic = user.avatar;
   let h1 = document.querySelector("h1");
   const main = document.getElementById("main");
-  h1.innerText = "Hi, " + userName;
+  h1.innerText = "Where to " + userName + "?";
+
   fetchCountries();
 }
 
+
+function openTab(tabName, elmnt, color) {
+  let i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(tabName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();
+// -----------------------------------------------------------
+
+
+
+// ----------------------Fetch and Display Countries -----------------
 function fetchCountries() {
+  let activeDropdown = {};
+  document.getElementById("countries").addEventListener("click", function() {
+    if (activeDropdown.id && activeDropdown.id !== event.target.id) {
+      activeDropdown.element.style.visibility = "hidden"
+    }
+    if (event.target.tagName === "li") {
+      activeDropdown.button.innerHTML = event.target.innerHTML;
+    }
+    for (var i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("dropdown-selection")) {
+        activeDropdown.id = this.id;
+        activeDropdown.element = this.children[i];
+      } else if (this.children[i].classList.contains("dropdown-button")) {
+        activeDropdown.button = this.children[i];
+      }
+    }
+  });
   fetch(countriesURL)
     .then(res => res.json())
     .then(json => {
       showCountries(json);
     });
-}
+} // end of fetchCountries
+
 
 function showCountries(countries) {
-  const main = document.getElementById("main");
-  // let toggleButton = document.createElement("button");
-  // toggleButton.innerText = "Toggle";
-  // main.appendChild(toggleButton);
-  // toggleButton.addEventListener("click", function(e) {
-  //   toggleDisplay(e.target);
-  // });
-  // toggleButton.addEventListener("mouseover", function(e) {
-  //   toggleDisplay2(e.target);
-  // });
-
-  let asiaSelect = document.createElement("select");
-  asiaSelect.setAttribute("id", "Asia");
-
-  let europeSelect = document.createElement("select");
-  europeSelect.setAttribute("id", "Europe");
-
-  main.appendChild(asiaSelect);
-  main.appendChild(europeSelect);
-
   let asia = [];
   let europe = [];
   let norAmer = [];
@@ -145,79 +153,85 @@ function showCountries(countries) {
     }
   });
 
-  asia.forEach(function(country) {
-    let option = document.createElement("option");
-    option.setAttribute("id", "opt" + country.id);
-    option.setAttribute("value", country.name)
-    option.innerText = country.name;
-    asiaSelect.appendChild(option);
-
-    let showButton = document.createElement("button");
-    showButton.innerText = country.name;
-    showButton.addEventListener("click", function(e) {
+  europe.forEach(function(country) {
+    let europeDiv = document.getElementById("europe");
+    europeDiv.innerText = "Europe";
+    let ul = document.getElementById("europe2");
+    let li = document.createElement("li");
+    li.innerText = country.name;
+    li.addEventListener("click", function(e) {
       e.preventDefault();
       openNav(e, country);
   });
-  main.appendChild(showButton)
-
-    });
-    // asiaSelect.addEventListener("onselect", function(e) {
-      // openNav(e, country);
-  // });
-
-  europe.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    europeSelect.appendChild(option);
-    console.log(option);
+    ul.appendChild(li);
   });
 
-  norAmer.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    northMenu.appendChild(option);
-    console.log(option);
+  asia.forEach(function(country) {
+    let asiaDiv = document.getElementById("asia");
+    asiaDiv.innerText = "Asia";
+    let ul2 = document.getElementById("asia2");
+    let li = document.createElement("li");
+    li.innerText = country.name;
+    li.addEventListener("click", function(e) {
+      e.preventDefault();
+      openNav(e, country);
+  });
+    ul2.appendChild(li);
   });
 
-  soAmer.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    southMenu.appendChild(option);
-    console.log(option);
-  });
+// ========Event Listeners for Dropdowns (Using hover in CSS instead)================
+  // document.getElementById("countries").addEventListener("mouseover", function openDropDown(e) {
+  //   e.preventDefault();
+  //   for (let i = 0; i < this.children.length; i++) {
+  //     if (this.children[i].classList.contains("hidden")) {
+  //       this.children[1].classList.add("visible");
+  //       this.children[1].classList.remove("hidden");
+  //     } else if (this.children[i].classList.contains("visible")) {
+  //       this.children[1].classList.add("hidden");
+  //       this.children[1].classList.remove("visible");
+  //     }
+  //   }
+  // })
+  // document.getElementById("countries2").addEventListener("mouseover", function openDropDown(e) {
+  //   e.preventDefault();
+  //   for (let i = 0; i < this.children.length; i++) {
+  //     if (this.children[i].classList.contains("hidden")) {
+  //       this.children[1].classList.add("visible");
+  //       this.children[1].classList.remove("hidden");
+  //     } else if (this.children[i].classList.contains("visible")) {
+  //       this.children[1].classList.add("hidden");
+  //       this.children[1].classList.remove("visible");
+  //     }
+  //   }
+  // })
+  // ================================
+};  // end of showCountries function
+// -------------------------------------------------------
 
-  oceania.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    oceaniaMenu.appendChild(option);
-    console.log(option);
-  });
 
-  africa.forEach(function(country) {
-    let option = document.createElement("option");
-    option.innerText = country.name;
-    africaMenu.appendChild(option);
-    console.log(option);
-  });
-}
 
-function toggleDisplay(target) {
-  let dropdown = document.getElementById("Asia");
-  if (dropdown.style.display === "none") {
-    dropdown.style.display = "block";
-  } else {
-    dropdown.style.display = "none";
-  }
-}
 
-function toggleDisplay2(target) {
-  let dropdown = document.getElementById("Europe");
-  if (dropdown.style.display === "none") {
-    dropdown.style.display = "block";
-  } else {
-    dropdown.style.display = "none";
-  }
-}
+// ---------------Toggle functions ---------------------------
+// function toggleDisplay(target) {
+//   let dropdown = document.getElementById("Asia");
+//   if (dropdown.style.display === "none") {
+//     dropdown.style.display = "block";
+//   } else {
+//     dropdown.style.display = "none";
+//   }
+// }
+//
+// function toggleDisplay2(target) {
+//   let dropdown = document.getElementById("Europe");
+//   if (dropdown.style.display === "none") {
+//     dropdown.style.display = "block";
+//   } else {
+//     dropdown.style.display = "none";
+//   }
+// }
+// -------------------------------------------------------
+
+
 
 // -------------------open/close nav -------------------------
 function openNav(e, country) {
@@ -230,10 +244,11 @@ function closeNav() {
   let addButton = document.querySelector(".add");
   addButton.parentNode.removeChild(addButton);
   document.getElementById("myNav").style.width = "0%";
-
 }
 // -------------------------------------------------------
 
+
+// ------------------Country Show Page --------------------------
 function showCountry(country) {
   let page = document.querySelector(".overlay-content");
   page.id = "page" + country.id
@@ -254,6 +269,8 @@ function showCountry(country) {
   page.appendChild(addButton);
 }
 
+
+// ----------------------Add Trip to Bucket List ------------------------
 function addCountry(e, country) {
   console.log(e, `added ${country.id}`)
   // fetch(tripsURL, {
@@ -271,3 +288,40 @@ function addCountry(e, country) {
   // }).then(resp => resp.json())
   // .then(data => console.log(data))
 }
+// -------------------------------------------------------------
+
+
+// -----------------------View User Page -----------------------
+function displayUser() {
+  console.log("linkeduser")
+}
+
+// ------------------------------------------------------------
+
+// -----------------------View BUCKET LIST Page -----------------------
+function displayBL() {
+  console.log("linked BL")
+}
+
+// ------------------------------------------------------------
+
+// -----------------------View TRAVEL LOG Page -----------------------
+function displayTL() {
+  console.log("linked TL")
+}
+
+// ------------------------------------------------------------
+
+
+
+// ----------------------Switch BL Item to Travel Log -----------
+
+
+// -------------------------------------------------------------
+
+
+
+// ---------------------Leave Like & Comments ------------
+
+
+// --------------------------------------------------------------

@@ -10,5 +10,4 @@ class TripsController < ApplicationController
    render json: @trip
  end
 
-
 end

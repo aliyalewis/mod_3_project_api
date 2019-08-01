@@ -5,47 +5,69 @@
    <title>Trips</title>
    <link rel="stylesheet" href="style.css">
  </head>
+
+
  <body>
    <main id= "main">
      <h1></h1>
 
-  <div class='header_div' id='tabName'>
-    <div id="TravelLog" class="tabcontent">
-      <h1>My Travel Log</h1>
-      <p></p>
-    </div>
 
-    <div id="BucketList" class="tabcontent">
-      <h1>My Bucket List</h1>
-      <p></p>
-    </div>
 
-    <div id="Resources" class="tabcontent">
-      <h1>Travel Resources</h1>
-      <p>A list of sites that may help you get started on your next adventure!</p>
-    </div>
+<div class="header_div" id='tabName'>
+<!-- ===============   TRAVEL LOG DIV =============== -->
+     <div id="TravelLog" class="tabcontent">
 
-    <div id="Home" class="tabcontent">
-      <h1>Home</h1>
-      <p></p>
-    </div>
+  <h1>My Travel Log</h1>
+  <p></p>
+</div>
 
-    <button class="tablink" onclick="openTab('Home', this, 'red')" id="defaultOpen">Home</button>
-    <button class="tablink" onclick="openTab('TravelLog', this, 'green')">Travel Log</button>
-    <button class="tablink" onclick="openTab('BucketList', this, 'blue')">Bucket List</button>
-    <button class="tablink" onclick="openTab('Resources', this, 'orange')">Resources</button>
-  </div>
 
-    <div class="dropdown", id="countries">
-      <div class='dropdown-button' id="europe"></div>
-      <ul class='dropdown-selection hidden' id="europe2"></ul>
-    </div>
+<!-- ===============   BUCKET LIST DIV =============== -->
+<div id="BucketList" class="tabcontent">
 
-    <div class="dropdown", id="countries2">
-      <div class='dropdown-button' id="asia"></div>
-      <ul class='dropdown-selection hidden' id="asia2"></ul>
+  <h1>My Bucket List</h1>
+  <p></p>
+</div>
+
+
+<!-- ===============   RESOURCES DIV =============== -->
+
+<div id="Resources" class="tabcontent">
+  <h1>Travel Resources</h1>
+  <p>A list of sites that may help you get started on your next adventure!</p>
+</div>
+
+  
+<!-- ===============   HOME DIV =============== -->
+
+<div id="Home" class="tabcontent">
+  <h1>Home</h1>
+  <p></p>
+</div>
+
+
+<!-- ===============  TAB BUTTONS =============== -->
+<button class="tablink" onclick="openTab('Home', this, 'red')" id="defaultOpen">Home</button>
+<button class="tablink" onclick="openTab('TravelLog', this, 'green')">Travel Log</button>
+<button class="tablink" onclick="openTab('BucketList', this, 'blue')">Bucket List</button>
+<button class="tablink" onclick="openTab('Resources', this, 'orange')">Resources</button>
+</div>
+
+     
+<!-- =============== DROPDOWNS =============== -->
+<div class="dropdown", id="countries">
+  <div class='dropdown-button' id="europe"></div>
+  <ul class='dropdown-selection' id="europe2"></ul>
+</div>
+
+<div class="dropdown", id="countries2">
+  <div class='dropdown-button' id="asia"></div>
+  <ul class='dropdown-selection' id="asia2"></ul>
 </div>
    </main>
+
+
+<!-- ===============  NAV PAGE DIV =============== -->
 
    <!-- The overlay -->
 <div id="myNav" class="overlay">

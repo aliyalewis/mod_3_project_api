@@ -9,6 +9,8 @@ function main() {
   loginPrompt();
 }
 
+
+// --------------------------Logging In -------------------------------
 function loginPrompt() {
   document.querySelector('.header_div')
 
@@ -52,6 +54,7 @@ function fetchUser(e) {
   }).then(res => res.json()).then(json => renderUser(json));
 }
 
+
 function renderUser(user) {
   currentUser = user;
   let header = document.querySelector(".header_div")
@@ -61,65 +64,67 @@ function renderUser(user) {
       item.style.visibility = "visible";
     }
 
- let form = document.querySelector("form");
- let p = document.getElementById("login");
- p.setAttribute("hidden", "hidden");
- p.style.display = 'none'
- form.setAttribute("hidden", "hidden")
- let userName = user.name;
- let userPic = user.avatar ;
- let h1 = document.querySelector("h1");
- const main = document.getElementById("main");
- h1.innerText = "Where to " + userName + "?";
+  let form = document.querySelector("form");
+  let p = document.getElementById("login");
+  p.setAttribute("hidden", "hidden");
+  p.style.display = "none";
+  form.setAttribute("hidden", "hidden");
+  let userName = user.name;
+  let userPic = user.avatar;
+  let h1 = document.querySelector("h1");
+  const main = document.getElementById("main");
+  h1.innerText = "Where to " + userName + "?";
 
- fetchCountries();
+  fetchCountries();
 }
 
- function openTab(tabName, elmnt, color) {
-   let i, tabcontent, tablinks;
-   tabcontent = document.getElementsByClassName("tabcontent");
-   for (i = 0; i < tabcontent.length; i++) {
-     tabcontent[i].style.display = "none";
-   }
 
-   tablinks = document.getElementsByClassName("tablink");
-   for (i = 0; i < tablinks.length; i++) {
-     tablinks[i].style.backgroundColor = "";
-   }
+function openTab(tabName, elmnt, color) {
+  let i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(tabName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
 
-   document.getElementById(tabName).display = "visible";
+document.getElementById("defaultOpen").click();
+// -----------------------------------------------------------
 
-   elmnt.style.backgroundColor = color;
- }
 
- document.getElementById("defaultOpen").click();
 
+// ----------------------Fetch and Display Countries -----------------
 function fetchCountries() {
-
   let activeDropdown = {};
-     document.getElementById("countries").addEventListener("click", function() {
-       if (activeDropdown.id && activeDropdown.id !== event.target.id) {
-         activeDropdown.element.style.visibility = "hidden"
-       }
-       if (event.target.tagName === "li") {
-         activeDropdown.button.innerHTML = event.target.innerHTML;
-       }
-       for (var i = 0; i < this.children.length; i++) {
-         if (this.children[i].classList.contains("dropdown-selection")) {
-           activeDropdown.id = this.id;
-           activeDropdown.element = this.children[i];
-         } else if (this.children[i].classList.contains("dropdown-button")) {
-           activeDropdown.button = this.children[i];
-         }
-       }
-     });
+  document.getElementById("countries").addEventListener("click", function() {
+    if (activeDropdown.id && activeDropdown.id !== event.target.id) {
+      activeDropdown.element.style.visibility = "hidden"
+    }
+    if (event.target.tagName === "li") {
+      activeDropdown.button.innerHTML = event.target.innerHTML;
+    }
+    for (var i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("dropdown-selection")) {
+        activeDropdown.id = this.id;
+        activeDropdown.element = this.children[i];
+      } else if (this.children[i].classList.contains("dropdown-button")) {
+        activeDropdown.button = this.children[i];
+      }
+    }
+  });
 
   fetch(countriesURL)
     .then(res => res.json())
     .then(json => {
       showCountries(json);
     });
-}
+} // end of fetchCountries
+
 
 function showCountries(countries) {
   let asia = [];
@@ -178,8 +183,10 @@ function showCountries(countries) {
     ul2.appendChild(li);
   });
 
-  // document.getElementById("countries").addEventListener("click", function() {
-  //   console.log("click");
+
+// ========Event Listeners for Dropdowns (Using hover in CSS instead)================
+  // document.getElementById("countries").addEventListener("mouseover", function openDropDown(e) {
+  //   e.preventDefault();
   //   for (let i = 0; i < this.children.length; i++) {
   //     if (this.children[i].classList.contains("hidden")) {
   //       this.children[1].classList.add("visible");
@@ -189,9 +196,9 @@ function showCountries(countries) {
   //       this.children[1].classList.remove("visible");
   //     }
   //   }
-  // });
-  //
-  // document.getElementById("countries2").addEventListener("click", function() {
+  // })
+  // document.getElementById("countries2").addEventListener("mouseover", function openDropDown(e) {
+  //   e.preventDefault();
   //   for (let i = 0; i < this.children.length; i++) {
   //     if (this.children[i].classList.contains("hidden")) {
   //       this.children[1].classList.add("visible");
@@ -201,22 +208,53 @@ function showCountries(countries) {
   //       this.children[1].classList.remove("visible");
   //     }
   //   }
-  // });
-}
+  // })
+  // ================================
+};  // end of showCountries function
+// -------------------------------------------------------
+
+
+
+
+// ---------------Toggle functions ---------------------------
+// function toggleDisplay(target) {
+//   let dropdown = document.getElementById("Asia");
+//   if (dropdown.style.display === "none") {
+//     dropdown.style.display = "block";
+//   } else {
+//     dropdown.style.display = "none";
+//   }
+// }
+//
+// function toggleDisplay2(target) {
+//   let dropdown = document.getElementById("Europe");
+//   if (dropdown.style.display === "none") {
+//     dropdown.style.display = "block";
+//   } else {
+//     dropdown.style.display = "none";
+//   }
+// }
+// -------------------------------------------------------
+
+
 
 // -------------------open/close nav -------------------------
 function openNav(e, country) {
   showCountry(country);
   document.getElementById("myNav").style.width = "100%";
-  // page.style.width = 100%
 }
 
 function closeNav() {
+  let page = document.querySelector(".overlay-content");
   let addButton = document.querySelector(".add");
   addButton.parentNode.removeChild(addButton);
   document.getElementById("myNav").style.width = "0%";
 }
 // -------------------------------------------------------
+
+
+
+// ------------------Country Show Page --------------------------
 
 function showCountry(country) {
   let page = document.querySelector(".overlay-content");
@@ -237,6 +275,10 @@ function showCountry(country) {
   page.appendChild(addButton);
 }
 
+
+
+// ----------------------Add Trip to Bucket List ------------------------
+
 function addCountry(e, country) {
   console.log(e, `added ${country.id}`);
   // fetch(tripsURL, {
@@ -254,3 +296,42 @@ function addCountry(e, country) {
   // }).then(resp => resp.json())
   // .then(data => console.log(data))
 }
+
+// -------------------------------------------------------------
+
+
+// -----------------------View User Page -----------------------
+function displayUser() {
+  console.log("linkeduser")
+}
+
+// ------------------------------------------------------------
+
+// -----------------------View BUCKET LIST Page -----------------------
+function displayBL() {
+  console.log("linked BL")
+}
+
+// ------------------------------------------------------------
+
+// -----------------------View TRAVEL LOG Page -----------------------
+function displayTL() {
+  console.log("linked TL")
+}
+
+// ------------------------------------------------------------
+
+
+
+// ----------------------Switch BL Item to Travel Log -----------
+
+
+// -------------------------------------------------------------
+
+
+
+// ---------------------Leave Like & Comments ------------
+
+
+// --------------------------------------------------------------
+

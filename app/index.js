@@ -28,6 +28,8 @@ function main() {
 }
 
 function loginPrompt() {
+  document.querySelector('.header_div')
+
   const form = document.createElement("form");
   const main = document.getElementById("main");
 
@@ -74,6 +76,10 @@ function fetchUser(e) {
 }
 
 function renderUser(user) {
+  currentUser = user
+  let div = document.querySelector(".header_div")
+  div.style.visibility = "visible";
+
   let form = document.querySelector("form");
   let p = document.getElementById("login");
   p.setAttribute("hidden", "hidden");
@@ -84,6 +90,9 @@ function renderUser(user) {
   let h1 = document.querySelector("h1");
   const main = document.getElementById("main");
   h1.innerText = "Where to " + userName + "?";
+
+
+  console.log(div.style.visibility)
   fetchCountries();
 }
 
@@ -135,7 +144,7 @@ function showCountries(countries) {
     li.addEventListener("click", function(e) {
       e.preventDefault();
       openNav(e, country);
-  });
+    });
     ul.appendChild(li);
   });
 
@@ -148,7 +157,7 @@ function showCountries(countries) {
     li.addEventListener("click", function(e) {
       e.preventDefault();
       openNav(e, country);
-  });
+    });
     ul2.appendChild(li);
   });
 
@@ -179,8 +188,8 @@ function showCountries(countries) {
 }
 // -------------------open/close nav -------------------------
 function openNav(e, country) {
-  showCountry(country)
-  document.getElementById("myNav").style.width = "100%" ;
+  showCountry(country);
+  document.getElementById("myNav").style.width = "100%";
   // page.style.width = 100%
 }
 
@@ -193,26 +202,25 @@ function closeNav() {
 
 function showCountry(country) {
   let page = document.querySelector(".overlay-content");
-  page.id = "page" + country.id
+  page.id = "page" + country.id;
   const h2 = document.getElementById("name");
   h2.innerText = country.name;
   const description = document.getElementById("description");
   description.innerText = country.description;
   let addButton = document.createElement("button");
-  addButton.className = "add"
+  addButton.className = "add";
   addButton.id = "add" + country.id;
   addButton.innerText = "Add To My Bucket List!";
-    addButton.addEventListener("click", function _listener(e) {
-     addCountry(e, country)
-     addButton.innerText = "Trip Added!"
-     addButton.removeEventListener("click", _listener)
-
-    });
+  addButton.addEventListener("click", function _listener(e) {
+    addCountry(e, country);
+    addButton.innerText = "Trip Added!";
+    addButton.removeEventListener("click", _listener);
+  });
   page.appendChild(addButton);
 }
 
 function addCountry(e, country) {
-  console.log(e, `added ${country.id}`)
+  console.log(e, `added ${country.id}`);
   // fetch(tripsURL, {
   //   method: "POST",
   //   headers: {
@@ -241,7 +249,7 @@ function openTab(tabName, elmnt, color) {
     tablinks[i].style.backgroundColor = "";
   }
 
-  document.getElementById(tabName).style.display = "block";
+  document.getElementById(tabName).display = "visible";
 
   elmnt.style.backgroundColor = color;
 }

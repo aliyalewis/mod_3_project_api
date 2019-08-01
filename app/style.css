@@ -1,3 +1,7 @@
+.header_div {
+  visibility: hidden;
+}
+
 .dropdown {
   display: inline-block;
   position: relative;

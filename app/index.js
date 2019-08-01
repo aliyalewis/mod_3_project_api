@@ -12,6 +12,8 @@ function main() {
 
 // --------------------------Logging In -------------------------------
 function loginPrompt() {
+  document.querySelector('.header_div')
+
   const form = document.createElement("form");
   const main = document.getElementById("main");
 
@@ -49,9 +51,9 @@ function fetchUser(e) {
     body: JSON.stringify({
       name: username
     })
-
   }).then(res => res.json()).then(json => renderUser(json));
 }
+
 
 function renderUser(user) {
   currentUser = user;
@@ -115,6 +117,7 @@ function fetchCountries() {
       }
     }
   });
+
   fetch(countriesURL)
     .then(res => res.json())
     .then(json => {
@@ -163,7 +166,7 @@ function showCountries(countries) {
     li.addEventListener("click", function(e) {
       e.preventDefault();
       openNav(e, country);
-  });
+    });
     ul.appendChild(li);
   });
 
@@ -176,9 +179,10 @@ function showCountries(countries) {
     li.addEventListener("click", function(e) {
       e.preventDefault();
       openNav(e, country);
-  });
+    });
     ul2.appendChild(li);
   });
+
 
 // ========Event Listeners for Dropdowns (Using hover in CSS instead)================
   // document.getElementById("countries").addEventListener("mouseover", function openDropDown(e) {
@@ -242,7 +246,6 @@ function openNav(e, country) {
 
 function closeNav() {
   let page = document.querySelector(".overlay-content");
-
   let addButton = document.querySelector(".add");
   addButton.parentNode.removeChild(addButton);
   document.getElementById("myNav").style.width = "0%";
@@ -255,21 +258,20 @@ function closeNav() {
 
 function showCountry(country) {
   let page = document.querySelector(".overlay-content");
-  page.id = "page" + country.id
+  page.id = "page" + country.id;
   const h2 = document.getElementById("name");
   h2.innerText = country.name;
   const description = document.getElementById("description");
   description.innerText = country.description;
   let addButton = document.createElement("button");
-  addButton.className = "add"
+  addButton.className = "add";
   addButton.id = "add" + country.id;
   addButton.innerText = "Add To My Bucket List!";
-    addButton.addEventListener("click", function _listener(e) {
-     addCountry(e, country)
-     addButton.innerText = "Trip Added!"
-     addButton.removeEventListener("click", _listener)
-
-    });
+  addButton.addEventListener("click", function _listener(e) {
+    addCountry(e, country);
+    addButton.innerText = "Trip Added!";
+    addButton.removeEventListener("click", _listener);
+  });
   page.appendChild(addButton);
 }
 
@@ -278,7 +280,7 @@ function showCountry(country) {
 // ----------------------Add Trip to Bucket List ------------------------
 
 function addCountry(e, country) {
-  console.log(e, `added ${country.id}`)
+  console.log(e, `added ${country.id}`);
   // fetch(tripsURL, {
   //   method: "POST",
   //   headers: {
@@ -294,6 +296,7 @@ function addCountry(e, country) {
   // }).then(resp => resp.json())
   // .then(data => console.log(data))
 }
+
 // -------------------------------------------------------------
 
 

@@ -49,6 +49,7 @@ function fetchUser(e) {
     body: JSON.stringify({
       name: username
     })
+
   }).then(res => res.json()).then(json => renderUser(json));
 }
 
@@ -241,6 +242,7 @@ function openNav(e, country) {
 
 function closeNav() {
   let page = document.querySelector(".overlay-content");
+
   let addButton = document.querySelector(".add");
   addButton.parentNode.removeChild(addButton);
   document.getElementById("myNav").style.width = "0%";
@@ -248,7 +250,9 @@ function closeNav() {
 // -------------------------------------------------------
 
 
+
 // ------------------Country Show Page --------------------------
+
 function showCountry(country) {
   let page = document.querySelector(".overlay-content");
   page.id = "page" + country.id
@@ -270,7 +274,9 @@ function showCountry(country) {
 }
 
 
+
 // ----------------------Add Trip to Bucket List ------------------------
+
 function addCountry(e, country) {
   console.log(e, `added ${country.id}`)
   // fetch(tripsURL, {
@@ -325,3 +331,4 @@ function displayTL() {
 
 
 // --------------------------------------------------------------
+

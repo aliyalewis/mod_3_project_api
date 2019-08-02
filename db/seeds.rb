@@ -6,5 +6,5 @@ country2 = Country.create(name: "Singapore", location: "Asia")
 country3 = Country.create(name: "Hong Kong", location: "Asia")
 country4 = Country.create(name: "Vatican City", location: "Europe")
 
-trip1 = Trip.create(name: "Monaco", status: "Travel Log", user_id: 1, country_id: 1)
-trip2 = Trip.create(name: "Singapore", status: "Bucket List", user_id: 1, country_id: 2)
+trip1 = Trip.create(name: "Monaco", status: "TL", user_id: 1, country_id: 1, likes: 0, review: "")
+trip2 = Trip.create(name: "Singapore", status: "BL", user_id: 1, country_id: 2, likes: 0, review: "")

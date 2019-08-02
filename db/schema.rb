@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2019_07_30_002333) do
   create_table "trips", force: :cascade do |t|
     t.string "name"
     t.string "status"
+    t.integer "likes"
+    t.string "review"
     t.integer "user_id"
     t.integer "country_id"
     t.datetime "created_at", null: false

@@ -9,54 +9,88 @@
 
  <body>
    <main id= "main">
-     <h1></h1>
-
+     <h1 id="h1"></h1>
+     <div class="bg"></div>
+<!-- ========================HEADER=============================== -->
 <div class="header_div">
-<!-- ===============   TRAVEL LOG DIV =============== -->
-     <div id="TravelLog" class="tabcontent">
+                <!-- =======   TRAVEL LOG DIV ======== -->
+ <div id="TravelLog" class="tabcontent">
   <h1>My Travel Log</h1>
   <p></p>
 </div>
 
-<!-- ===============   BUCKET LIST DIV =============== -->
+              <!-- =========  BUCKET LIST DIV ======== -->
 <div id="BucketList" class="tabcontent">
   <h1>My Bucket List</h1>
   <p></p>
 </div>
 
-<!-- ===============   RESOURCES DIV =============== -->
+           <!-- ============ RESOURCES DIV ============ -->
 <div id="Resources" class="tabcontent">
   <h1>Travel Resources</h1>
   <p>A list of sites that may help you get started on your next adventure!</p>
 </div>
 
-<!-- ===============   HOME DIV =============== -->
+         <!-- =============== HOME DIV =============== -->
 <div id="Home" class="tabcontent">
   <h1>Home</h1>
   <p></p>
 </div>
 
-<!-- ===============  TAB BUTTONS =============== -->
+         <!-- ==========  TAB BUTTONS ============ -->
 <button class="tablink" onclick="openTab('Home', this, 'red')" id="defaultOpen">Home</button>
 <button class="tablink" onclick="openTab('TravelLog', this, 'green')">Travel Log</button>
 <button class="tablink" onclick="openTab('BucketList', this, 'blue')">Bucket List</button>
 <button class="tablink" onclick="openTab('Resources', this, 'orange')">Resources</button>
 </div>
+<!-- =======================END HEADER ================================ -->
 
-<!-- =============== DROPDOWNS =============== -->
-<div class="dropdown", id="countries">
-  <div class='dropdown-button' id="europe"></div>
-  <ul class='dropdown-selection' id="europe2"></ul>
+
+<!-- ===========================REST OF BODY================================ -->
+
+<div class="mainbody">
+
+  <!-- ================HOME VIEW ============================= -->
+            <!-- ======= DROPDOWNS ======= -->
+<div class="view" id="home">
+    <div class="dropdown", id="countries">
+      <div class='dropdown-button' id="europe"></div>
+      <ul class='dropdown-selection' id="europe2"></ul>
+    </div>
+
+    <div class="dropdown", id="countries2">
+      <div class='dropdown-button' id="asia"></div>
+      <ul class='dropdown-selection' id="asia2"></ul>
+    </div>
+
+    HOME VIEW
+
 </div>
-
-<div class="dropdown", id="countries2">
-  <div class='dropdown-button' id="asia"></div>
-  <ul class='dropdown-selection' id="asia2"></ul>
+  <!-- ==================TRAVEL LOG VIEW ===================== -->
+<div class="view" id="travellog">
+   Travel Log
+   <form style='' class='review-form hidden' id='form2'>
+     <input type='text' name='review' placeholder='Type review here...' class='input-text'>
+     <input type='submit' name='submit' class='submit'>
+   </form>
+   <ul id="tlist"></ul>
 </div>
-   </main>
+  <!-- ==================BUCKET LIST VIEW ===================== -->
+<div class="view" id="bucketlist">
+  Bucket List
+<ul id="blist"></ul>
+</div>
+  <!-- ==================RESOURCES VIEW ===================== -->
+<div class="view" id="resources">
+  Resources
 
 
-<!-- ===============  NAV PAGE DIV =============== -->
+</div>
+</div>
+ </main>
+
+
+<!-- ==========================  NAV PAGE DIV ======================== -->
    <!-- The overlay -->
 <div id="myNav" class="overlay">
  <!-- Button to close the overlay navigation -->
@@ -67,12 +101,13 @@
         <img id="img">
    <p id="description"></p>
      <!-- <button class="add"></button> -->
+     <div class="pic"></div>
           <ul class=""></ul>
  </div>
 </div>
 <!-- Use any element to open/show the overlay navigation menu -->
 <!-- <span onclick="openNav()"></span> -->
-
+<!-- ===============END NAV PAGE ======================================== -->
 
 
    <script src="./index.js"></script>

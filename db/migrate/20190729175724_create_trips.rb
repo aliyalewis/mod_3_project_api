@@ -3,6 +3,8 @@ class CreateTrips < ActiveRecord::Migration[5.2]
     create_table :trips do |t|
       t.string :name
       t.string :status
+      t.integer :likes
+      t.string :review
       t.references :user
       t.references :country
       t.timestamps

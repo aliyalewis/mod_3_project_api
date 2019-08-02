@@ -10,9 +10,4 @@ class CountriesController < ApplicationController
     render json: @country
   end
 
-  def reviews
-    country = Country.find(params[:id])
-    render json: country.reviews
-  end
-
 end

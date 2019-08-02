@@ -1,31 +1,9 @@
-
-.header_div {
-  visibility: hidden;
-}
-html,
-.bg {
-  background-image: url("assets/background.png");
-  height: 100%,
-  width: 100%
-}
-
-.view {
-  display: none;
-}
-
-
 .dropdown {
   display: inline-block;
   position: relative;
   font-size: 16px;
   font-family: "Arial";
 }
-
-.dropdown-selection {visibility: hidden;}
-.dropdown:hover .dropdown-selection {visibility: visible;}
-.dropdown:hover .dropdown-button {background: #2980b9; transition: background .3s ease;}
-
-
 .dropdown-button {
   background: #3498db;
   min-width: 100px;
@@ -37,8 +15,10 @@ html,
   cursor: pointer;
   transition: background .3s ease;
 }
-
-
+.dropdown-button:hover {
+  background: #2980b9;
+  transition: background .3s ease;
+}
 .triangle {
   font-size: 50%;
   position: absolute;
@@ -123,7 +103,6 @@ html,
   visibility: hidden
 }
 
-
 /*The Overlay (background) */
 .overlay {
  /* Height & width depends on how you want to reveal the overlay (see JS below) */
@@ -164,33 +143,26 @@ html,
  transition: 0.3s; /* Transition effects on hover (color) */
 }
 
-
-
-.overlay ul {
-    font-size: 28px;
- color: #818181;
-}
-/* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
- color: #f1f1f1;
-}
-/* Position the close button (top right corner) */
-.overlay .closebtn {
- position: absolute;
- top: 20px;
- right: 45px;
- font-size: 60px;
-}
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
- .overlay a {font-size: 20px}
+ .overlay ul {
+     font-size: 28px;
+  color: #818181;
+ }
+ /* When you mouse over the navigation links, change their color */
+ .overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+ }
+ /* Position the close button (top right corner) */
  .overlay .closebtn {
-   font-size: 40px;
-   top: 15px;
-   right: 35px;
-} }
-
-.review-form {
-  display: "none"
-}
-
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+ }
+ /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+ @media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+ }

@@ -19,7 +19,9 @@ country11 = Country.create(name: "Canada", location: "North America", descriptio
 country12 = Country.create(name: "Panama", location: "South America", description: "A man.  A plan.  A canal.  Panama!")
 
 
-trip1 = Trip.create(name: "Monaco", status: "Travel Log", user_id: 1, country_id: 1)
-trip2 = Trip.create(name: "Singapore", status: "Bucket List", user_id: 1, country_id: 2)
-trip3 = Trip.create(name: "Germany", status: "Bucket List", user_id: 4, country_id: 6)
-trip4 = Trip.create(name: "Bolivia", status: "Travel Log", user_id: 5, country_id: 8)
+
+trip1 = Trip.create(name: "Monaco", status: "Travel Log", user_id: 1, country_id: 1, likes: 0, review: "")
+trip2 = Trip.create(name: "Singapore", status: "Bucket List", user_id: 1, country_id: 2, likes: 0, review: "I got my broken by a Singaporean girl.")
+trip3 = Trip.create(name: "Germany", status: "Bucket List", user_id: 4, country_id: 6, likes: 0, review: "")
+trip4 = Trip.create(name: "Bolivia", status: "Travel Log", user_id: 5, country_id: 8, likes: 0, review: "")
+

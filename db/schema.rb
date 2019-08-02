@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_07_30_002333) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "countries", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -27,8 +24,10 @@ ActiveRecord::Schema.define(version: 2019_07_30_002333) do
   create_table "trips", force: :cascade do |t|
     t.string "name"
     t.string "status"
-    t.bigint "user_id"
-    t.bigint "country_id"
+    t.integer "likes"
+    t.string "review"
+    t.integer "user_id"
+    t.integer "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_trips_on_country_id"

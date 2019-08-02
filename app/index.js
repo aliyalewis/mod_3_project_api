@@ -6,6 +6,7 @@ let allCountries;
 let myTrips = [];
 let currentReviews = [];
 
+
 main();
 
 function main() {
@@ -19,6 +20,7 @@ function loginPrompt() {
   const form = document.createElement("form");
   form.setAttribute('id', 'loginForm')
   const main = document.getElementById("h1");
+
 
   const p = document.createElement("p");
   p.innerText = "Please login to continue!";
@@ -58,283 +60,10 @@ function fetchUser(e) {
     body: JSON.stringify({
       name: username
     })
-  }).then(res => res.json()).then(json => renderUser(json));
-};
 
-function renderUser(user) {
-  currentUser = user;
-  if(currentUser.trips) {myTrips.push(currentUser.trips)};
-  console.log(myTrips)
-  document.getElementById("defaultOpen").click();
-  let header = document.querySelector(".header_div")
-  header.style.visibility = "visible";
-  let homeView = document.getElementById("home")
-  homeView.style.display = "block";
-
-  let userName = user.name;
-  let userPic = user.avatar;
-  let h1 = document.querySelector("h1");
-  // const main = document.getElementById("main");
-  h1.innerText = "Where to " + userName + "?";
-
-  fetchCountries();
-}
-
-
-function openTab(tabName, elmnt, color) {
-  let i, tabcontent, tablinks;
-
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].style.backgroundColor = "";
-  }
-  document.getElementById(tabName).style.display = "block";
-  elmnt.style.backgroundColor = color;
-
-      switch (tabName) {
-        case "Home":
-          displayHome();
-          break;
-        case "TravelLog":
-        // displayTL()
-          fetchTrips("TL");
-          break;
-        case "BucketList":
-        // displayBL()
-          fetchTrips("BL");
-          break;
-        case "Resources":
-          displayResources();
-          break;
-      }
-};
-// -----------------------------------------------------------
-
-
-
-// ----------------------Fetch and Display Countries -----------------
-function fetchCountries() {
-  let activeDropdown = {};
-  document.getElementById("countries").addEventListener("click", function() {
-    if (activeDropdown.id && activeDropdown.id !== event.target.id) {
-      activeDropdown.element.style.visibility = "hidden"
-    }
-    if (event.target.tagName === "li") {
-      activeDropdown.button.innerHTML = event.target.innerHTML;
-    }
-    for (var i = 0; i < this.children.length; i++) {
-      if (this.children[i].classList.contains("dropdown-selection")) {
-        activeDropdown.id = this.id;
-        activeDropdown.element = this.children[i];
-      } else if (this.children[i].classList.contains("dropdown-button")) {
-        activeDropdown.button = this.children[i];
-      }
-    }
-  });
-  return fetch(countriesURL)
-    .then(res => res.json())
-    .then(json => {
-      allCountries = json;
-      showCountries(json);
-
-    });
-} // end of fetchCountries
-
-
-function showCountries(countries) {
-  let asia = [];
-  let europe = [];
-  let norAmer = [];
-  let soAmer = [];
-  let oceania = [];
-  let africa = [];
-
-  countries.forEach(function(country) {
-    switch (country.location) {
-      case "Asia":
-        asia.push(country);
-        break;
-      case "Europe":
-        europe.push(country);
-        break;
-      case "North America":
-        norAmer.push(country);
-        break;
-      case "South America":
-        soAmer.push(country);
-        break;
-      case "Oceania":
-        oceania.push(country);
-        break;
-      case "Africa":
-        africa.push(country);
-        break;
-    }
-  });
-
-  europe.forEach(function(country) {
-    let europeDiv = document.getElementById("europe");
-    europeDiv.innerText = "Europe";
-    let ul = document.getElementById("europe2");
-    let li = document.createElement("li");
-    li.innerText = country.name;
-    li.addEventListener("click", function(e) {
-      e.preventDefault();
-      openNav(country);
-  });
-    ul.appendChild(li);
-  });
-
-  asia.forEach(function(country) {
-    let asiaDiv = document.getElementById("asia");
-    asiaDiv.innerText = "Asia";
-    let ul2 = document.getElementById("asia2");
-    let li = document.createElement("li");
-    li.innerText = country.name;
-    li.addEventListener("click", function(e) {
-      e.preventDefault();
-      openNav(country);
-  });
-    ul2.appendChild(li);
-  });
-};  // end of showCountries function
-// -------------------------------------------------------
-
-
-
-
-// ---------------Toggle functions ---------------------------
-// function toggleDisplay(target) {
-//   let dropdown = document.getElementById("Asia");
-//   if (dropdown.style.display === "none") {
-//     dropdown.style.display = "block";
-//   } else {
-//     dropdown.style.display = "none";
-//   }
-// }
-//
-// function toggleDisplay2(target) {
-//   let dropdown = document.getElementById("Europe");
-//   if (dropdown.style.display === "none") {
-//     dropdown.style.display = "block";
-//   } else {
-//     dropdown.style.display = "none";
-//   }
-// }
-// -------------------------------------------------------
-
-
-
-// -------------------open/close nav -------------------------
-function openNav(country) {
-  showCountry(country);
-  document.getElementById("myNav").style.width = "100%";
-}
-
-function closeNav() {
-  let page = document.querySelector(".overlay-content");
-  let addButton = document.querySelector(".add");
-  if(addButton) {addButton.parentNode.removeChild(addButton)};
-  document.getElementById("myNav").style.width = "0%";
-}
-// -------------------------------------------------------
-
-
-// ------------------Country Show Page --------------------------
-function showCountry(country) {
-  let page = document.querySelector(".overlay-content");
-  let pic = document.querySelector(".pic")
-  pic.innerHTML = "";
-  switch(country.name) {
-    case "Germany":
-      pic.innerHTML+="<img src='assets/drunk.jpeg'>";
-      break;
-    case "Switzerland":
-      pic.innerHTML+="<img src='assets/swiss.jpeg'>";
-      break;
-    case "Monaco":
-        pic.innerHTML+="<img src='assets/monaco.jpeg'>";
-        break;
-    case "Singapore":
-          pic.innerHTML+="<img src='assets/sg.jpeg'>";
-          break;
-    case "Hong Kong":
-            pic.innerHTML+="<img src='assets/hk.jpeg'>";
-            break;
-    case "Vatican City":
-              pic.innerHTML+="<img src='assets/vc.jpeg'>";
-              break;
-  }
-
-  page.id = "page" + country.id
-  const h2 = document.getElementById("name");
-  h2.innerText = country.name;
-  const description = document.getElementById("description");
-  description.innerText = country.description;
-  let addButton = document.createElement("button");
-  addButton.className = "add"
-  addButton.id = "add" + country.id;
-  addButton.innerText = "Add To My Bucket List!";
-
-    addButton.addEventListener("click", function _listener(e) {
-     addCountry(e, country)
-     addButton.innerText = "Trip Added!"
-     addButton.removeEventListener("click", _listener)
-    });
-      page.appendChild(addButton);
-
-
-  let reviews = getReviews(country)
-  let h3 = document.createElement('h3');
-  h3.innerText = "Reviews for this Destination:"
-  page.appendChild(h3)
-  let ul = document.createElement('ul');
-
-  reviews.forEach(function(rev) {
-    console.log(rev)
-    let li = document.createElement('li')
-    li.innerText = rev
-    ul.appendChild(li);
-  })
-  page.appendChild(ul);
-};
-
-
-// ----------------------Add Trip to Bucket List ------------------------
-function addCountry(e, country) {
-  console.log(e, `added ${country.id}`)
-  fetch(tripsURL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      name: country.name,
-      status: "BL",
-      user_id: currentUser.id,
-      country_id: country.id,
-    })
-  }).then(resp => resp.json())
-  .then(data => console.log(data))
-}
-// -------------------------------------------------------------
-
-
-// -----------------------View Home Page -----------------------
-function displayHome() {
-  let div = document.getElementById("home");
-  div.style.display = "block";
-  document.getElementById("travellog").style.display = "none";
-  document.getElementById("bucketlist").style.display = "none";
-  document.getElementById("resources").style.display = "none";
-  console.log("linkedhome")
 }
 // ------------------------------------------------------------
+
 
 // -----------------------View Resources Page -----------------------
 function displayResources() {
@@ -542,3 +271,179 @@ function updateTrip(trip, newReview) {
 }
 
 // --------------------------------------------------------------
+
+function renderUser(user) {
+  let form = document.querySelector("form");
+  let p = document.getElementById("login");
+  p.setAttribute("hidden", "hidden");
+  p.style.display = "none";
+  form.setAttribute("hidden", "hidden");
+  let userName = user.name;
+  let userPic = user.avatar;
+  let h1 = document.querySelector("h1");
+  const main = document.getElementById("main");
+  h1.innerText = "Where to " + userName + "?";
+  fetchCountries();
+}
+
+function fetchCountries() {
+  fetch(countriesURL)
+    .then(res => res.json())
+    .then(json => {
+      showCountries(json);
+    });
+}
+
+function showCountries(countries) {
+  let asia = [];
+  let europe = [];
+  let norAmer = [];
+  let soAmer = [];
+  let oceania = [];
+  let africa = [];
+
+  countries.forEach(function(country) {
+    switch (country.location) {
+      case "Asia":
+        asia.push(country);
+        break;
+      case "Europe":
+        europe.push(country);
+        break;
+      case "North America":
+        norAmer.push(country);
+        break;
+      case "South America":
+        soAmer.push(country);
+        break;
+      case "Oceania":
+        oceania.push(country);
+        break;
+      case "Africa":
+        africa.push(country);
+        break;
+    }
+  });
+
+  europe.forEach(function(country) {
+    let europeDiv = document.getElementById("europe");
+    europeDiv.innerText = "Europe";
+    let ul = document.getElementById("europe2");
+    let li = document.createElement("li");
+    li.innerText = country.name;
+    li.addEventListener("click", function(e) {
+      e.preventDefault();
+      openNav(e, country);
+  });
+    ul.appendChild(li);
+  });
+
+  asia.forEach(function(country) {
+    let asiaDiv = document.getElementById("asia");
+    asiaDiv.innerText = "Asia";
+    let ul2 = document.getElementById("asia2");
+    let li = document.createElement("li");
+    li.innerText = country.name;
+    li.addEventListener("click", function(e) {
+      e.preventDefault();
+      openNav(e, country);
+  });
+    ul2.appendChild(li);
+  });
+
+  document.getElementById("countries").addEventListener("click", function() {
+    console.log("click");
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("hidden")) {
+        this.children[1].classList.add("visible");
+        this.children[1].classList.remove("hidden");
+      } else if (this.children[i].classList.contains("visible")) {
+        this.children[1].classList.add("hidden");
+        this.children[1].classList.remove("visible");
+      }
+    }
+  });
+
+  document.getElementById("countries2").addEventListener("click", function() {
+    for (let i = 0; i < this.children.length; i++) {
+      if (this.children[i].classList.contains("hidden")) {
+        this.children[1].classList.add("visible");
+        this.children[1].classList.remove("hidden");
+      } else if (this.children[i].classList.contains("visible")) {
+        this.children[1].classList.add("hidden");
+        this.children[1].classList.remove("visible");
+      }
+    }
+  });
+}
+// -------------------open/close nav -------------------------
+function openNav(e, country) {
+  showCountry(country)
+  document.getElementById("myNav").style.width = "100%" ;
+  // page.style.width = 100%
+}
+
+function closeNav() {
+  let addButton = document.querySelector(".add");
+  addButton.parentNode.removeChild(addButton);
+  document.getElementById("myNav").style.width = "0%";
+}
+// -------------------------------------------------------
+
+function showCountry(country) {
+  let page = document.querySelector(".overlay-content");
+  page.id = "page" + country.id
+  const h2 = document.getElementById("name");
+  h2.innerText = country.name;
+  const description = document.getElementById("description");
+  description.innerText = country.description;
+  let addButton = document.createElement("button");
+  addButton.className = "add"
+  addButton.id = "add" + country.id;
+  addButton.innerText = "Add To My Bucket List!";
+    addButton.addEventListener("click", function _listener(e) {
+     addCountry(e, country)
+     addButton.innerText = "Trip Added!"
+     addButton.removeEventListener("click", _listener)
+
+    });
+  page.appendChild(addButton);
+}
+
+function addCountry(e, country) {
+  console.log(e, `added ${country.id}`)
+  // fetch(tripsURL, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     'Accept': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     name: country.name,
+  //     status: "BL",
+  //     user_id: currentUser.id,
+  //     country_id: country.id,
+  //   })
+  // }).then(resp => resp.json())
+  // .then(data => console.log(data))
+}
+
+function openTab(tabName, elmnt, color) {
+  let i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+
+  document.getElementById(tabName).style.display = "block";
+
+  elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();
+
